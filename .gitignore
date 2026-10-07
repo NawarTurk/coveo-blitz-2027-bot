@@ -1,0 +1,9 @@
+local_game_logs/
+data/
+*.zip
+ship*/
+__pycache__/
+.venv/
+*.npy
+*.npz
+.DS_Store
