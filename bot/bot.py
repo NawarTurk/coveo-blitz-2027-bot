@@ -6,4 +6,4 @@ import os, sys
 _here = os.path.dirname(os.path.abspath(__file__))
 sys.path[:0] = [os.path.join(_here, "candidate_bots"), os.path.join(_here, "infrastructure")]
 
-from cage_cnn4 import Bot  # noqa: E402,F401   <- best so far (Cage B)
+from n4_survival_follow import Bot  # noqa: E402,F401   <- best so far (N4)

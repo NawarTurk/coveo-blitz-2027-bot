@@ -40,7 +40,7 @@ LOG_EACH = True          # one [N4] line per all-doomed tick + its outcome
 # --------------------------------------------------------------------------
 
 FC.HOLD_WHEN_ALL_DOOMED = True          # kept on; all_doomed() below decides per tick
-RP.TRACE = False                        # keep the [REPORT] lines, drop the per-tick trace
+RP.TRACE = True                         # full per-tick trace (T| lines) + [REPORT] + [N4]
 C.BOT_NAME = "n4_survival_follow"
 BINS = (0.1, 0.3, 0.5, 0.7, 1.01)
 
