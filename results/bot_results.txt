@@ -2,32 +2,42 @@ BOT RESULTS (Coveo Blitz 2027 server tryouts)
 =============================================
 
 Each score is one server game. Maps change every game, so single games swing by 5k+;
-compare averages, not single games.
+compare averages, not single games. Leaderboard score: 18,888 (v16, cage_cnn4).
 
 
 CANDIDATE BOTS (bot/candidate_bots/)
 
-BOT                  WHAT IT DOES                                   VERSIONS        GAMES  SCORES                                         AVG      BEST
--------------------  ---------------------------------------------  --------------  -----  ---------------------------------------------  -------  ------
-cage_cnn4            traps dinos; CNN4 scores ~60 meteor spots      v10 v15 v16     7      16,293 14,999 15,774 8,803 16,228 18,888 16,986  15,424   18,888
-wide_search_cnn4     same, but CNN4 scores ~150 spots               v17 v27         4      15,437 12,250 10,390 15,624                     13,425   15,624
-species_heuristic    no ML: rule-based species flee simulation      v21 v22         3      9,143 8,698 7,402                              8,414    9,143
+BOT                    WHAT IT DOES                                            VERSIONS      GAMES  SCORES                                           AVG      BEST
+---------------------  ------------------------------------------------------  ------------  -----  -----------------------------------------------  -------  ------
+cage_cnn4              traps dinos; CNN4 scores ~60 meteor spots (old CNN4)    v10 v15 v16   7      16,293 14,999 15,774 8,803 16,228 18,888 16,986  15,424   18,888
+cage_cnn4 + new CNN4   same bot, CNN4 retrained on 1,151 games (N0)            v30           3      14,416 16,843 11,312                            14,190   16,843
+wide_search_cnn4       same, but CNN4 scores ~150 spots incl. empty tiles      v17 v27       4      15,437 12,250 10,390 15,624                     13,425   15,624
+n1_straggler_hunter    cage_cnn4 + clear bonus 10 + stragglers at full value   v31           2      9,710 10,345                                    10,028   10,345
+                       + aims ahead of running dinos
+species_heuristic      no ML: rule-based species flee simulation               v21 v22       3      9,143 8,698 7,402                               8,414    9,143
+n2_straggler_priority  N1 + stragglers worth 1000x                             -             0      not uploaded (N1 was worse)                      -        -
+cage_cnn4_report       cage_cnn4 + per-tick trace + end-of-game report         -             0      pending                                          -        -
 
 
 ENGINE LAYERS (bot/infrastructure/) - each was once a full bot
 
-BOT                  WHAT IT DOES                                   VERSIONS        GAMES  SCORES                                         AVG      BEST
--------------------  ---------------------------------------------  --------------  -----  ---------------------------------------------  -------  ------
-cage_planner         traps dinos, CNN1 only (Cage A)                v9              1      13,904                                         13,904   13,904
-fast_clear           better reward: young dinos, multi-kill, clear  v6 v7           2      8,477 8,470                                    8,474    8,477
+BOT                    WHAT IT DOES                                            VERSIONS      GAMES  SCORES                                           AVG      BEST
+---------------------  ------------------------------------------------------  ------------  -----  -----------------------------------------------  -------  ------
+cage_planner           traps dinos, CNN1 only (Cage A)                         v9            1      13,904                                          13,904   13,904
+fast_clear             better reward: young dinos, multi-kill, fast clear      v6 v7         2      8,477 8,470                                     8,474    8,477
 
 
 NOTES
 
-- cage_cnn4 = our leaderboard score (18,888, v16).
 - v18 is left out: the zip was mixed up, so we don't know which bot ran.
-- wide_search_cnn4 includes v27 (Z1L): same decisions, it only adds an end-of-game report.
-- species_heuristic includes v22: that was meant as ZH2, but the CNN never ran, so it played as ZH1.
+- wide_search_cnn4 includes v27 (Z1L): same decisions, it only added an end-of-game report.
+- species_heuristic includes v22: meant as ZH2, but the CNN never ran, so it played as ZH1.
+- N0 (new CNN4) vs old CNN4: within map luck, no clear difference.
+- N1 looks worse (~5k below cage_cnn4) but only 2 games; suspected causes: running-line spots crowd out
+  cage spots in CNN4's time budget, and clear bonus 10 favours long-shot clearing meteors.
 
-NEXT TEST
-- N0 = cage_cnn4 with the new CNN4 (trained on 1,151 games)   -> pending
+
+NEXT
+
+- Upload cage_cnn4_report (old CNN4) to get full server-game traces for analysis.
+- Fair comparisons: 100 local games on the same seeds per bot before uploading.
