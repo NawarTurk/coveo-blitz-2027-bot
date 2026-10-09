@@ -51,7 +51,9 @@ CONTEXT = """\
 
 ## Our bots (bot/candidate_bots/)
 
-- cage_cnn4 (best, ~15.4k avg): candidate spots around dinos and their escape tiles, ranked by a measured
+- n4_survival_follow (best, ~19.5k avg, best 22,771): cage_cnn4 + timing fix + when every live dino is under a
+  falling meteor, fire a follow-up if its escape-tile count says it will likely survive, aimed where it stops.
+- cage_cnn4 (~15.4k avg before the timing fix): candidate spots around dinos and their escape tiles, ranked by a measured
   "trap table" (catch rate vs free escape tiles), scored by CNN4 (predicts every dino's position at impact),
   final score = 70% CNN4 + 30% trap table.
 - wide_search_cnn4 (~13.4k): same but scores ~150 spots incl. empty tiles near dinos.
@@ -87,9 +89,12 @@ def main():
           f"Generated {datetime.now():%Y-%m-%d %H:%M} from `{logs}` ({n_games} local games).\n",
           "Purpose: give an LLM the full picture to reason about the next bot improvement.\n",
           CONTEXT]
-    res = os.path.join(ROOT, "results", "bot_results.txt")
-    if os.path.exists(res):
-        md += ["## Server results so far\n", "```", open(res).read().rstrip(), "```\n"]
+    readme = os.path.join(ROOT, "README.md")
+    if os.path.exists(readme):
+        r = open(readme).read()
+        a, b = r.find("## Results"), r.find("\n---", r.find("## Results"))
+        if a >= 0:
+            md += [r[a:b if b > a else None].replace("## Results", "## Server results so far", 1).rstrip() + "\n"]
     md.append("## Analyses\n")
     txt_dir = os.path.join(ROOT, os.path.dirname(args.out) or "results", "analysis")
     os.makedirs(txt_dir, exist_ok=True)
