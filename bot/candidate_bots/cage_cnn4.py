@@ -29,11 +29,14 @@ import cage_planner as CA
 C, FC = CA.C, CA.FC
 
 # ---- knobs ---------------------------------------------------------------
-LOG_GAMES = False
+LOG_GAMES = True
 MODEL4 = os.path.join(C.HERE, "models", "cnn_lookahead_4", "model.pt")   # or models/cnn4prev7/moves_cnn4prev7.pt
 PRIOR_W = 0.3            # CNN4 is calibrated -> trust it more than the trap table
 MAX4 = 60                # max spots scored by CNN4 per tick
 CHUNK = 16               # CNN4 batch size (time is checked between chunks)
+UNIT_CAP = 3.0           # max ms-per-spot estimate. Without it the estimate can spiral up (a slow tick -> fewer spots
+                         # -> a small batch costs about as much as a full one -> higher ms/spot -> ...) until CNN4
+                         # never runs again and every shot is a blind fallback (seen on the server: 229 fallbacks)
 # --------------------------------------------------------------------------
 
 C.BOT_NAME = "cage_cnn4"
@@ -62,6 +65,7 @@ class Bot(CA.Bot):
                 self.net4(x)
         self.unit4 = 1000 * (time.perf_counter() - t) / (3 * CHUNK) * 1.3
         self.n4 = 0
+        self.capped = 0
 
     # ---------------------------------------------------------------- inputs
     def update_hist(self, s):
@@ -131,6 +135,9 @@ class Bot(CA.Bot):
         if not ranked:
             return None
         self.static = None
+        if self.unit4 > UNIT_CAP:
+            self.unit4 = UNIT_CAP
+            self.capped += 1
         left = C.TICK_BUDGET_MS - 1000 * (time.perf_counter() - self.tick_t0) - 3
         n = min(MAX4, len(ranked), int(left / self.unit4) if self.unit4 > 0 else MAX4)
         if n < 1:
@@ -183,4 +190,4 @@ class Bot(CA.Bot):
 
     def finish(self, s):
         super().finish(s)
-        print(f"CNN4 spots/tick (last): {self.n4} | ms per spot: {self.unit4:.2f}")
+        print(f"CNN4 spots/tick (last): {self.n4} | ms per spot: {self.unit4:.2f} | ms/spot estimate capped {self.capped} times")
