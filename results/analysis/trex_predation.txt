@@ -1,0 +1,22 @@
+T-Rex predation
+How dinos die (meteor / lava / scroll / eaten / other), how many are eaten by a T-Rex and the points lost.
+logs: local_game_logs (1151 games)
+
+1054 games
+
+How dinos die (per game avg, % of all deaths):
+  meteor    83.4    71.7%
+  lava      18.3    15.7%
+  scroll    10.0     8.6%
+  eaten      4.6     4.0%
+  other      0.1     0.1%
+
+EATEN: 4.6 dinos per game
+  points lost per game: avg 410  (median 352, max 1903)  = 4.2% of our average score 9716
+  age of eaten dinos: median 22, mean 66  (value at median age 92 pts)
+  species eaten: {'Triceratops': 2043, 'Velociraptor': 911, 'Stegosaurus': 1907}
+  T-Rex distance just before: {1: 4861}
+
+T-REX: 8.0 per game | meals per T-Rex: avg 0.58, max 11 | % of T-Rexes that eat at least once: 32% | ticks alive avg 65
+  meals per T-Rex per 100 ticks alive: 0.90
+  -> killing a T-Rex ~X ticks earlier saves about X * 0.0090 meals x ~92 pts

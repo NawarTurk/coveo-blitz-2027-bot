@@ -1,0 +1,118 @@
+Spawn sequence per species
+Same prediction test, one species at a time.
+logs: local_game_logs (1151 games)
+
+
+============================== Stegosaurus ==============================
+species: Stegosaurus
+1054 games, 8463 waves (8.0 per game), median 6 dinos per wave | train 843 / test 211 games
+
+SPAWN ROW on screen (0 = top, 19 = bottom), % of spawns:
+  0:4 1:4 2:4 3:4 4:4 5:4 6:4 7:5 8:5 9:5 10:5 11:5 12:6 13:8 14:6 15:6 16:6 17:6 18:6 19:3
+SPAWN COLUMN (0 = left), % of spawns:
+  0:4 1:5 2:5 3:5 4:5 5:5 6:5 7:5 8:5 9:5 10:5 11:5 12:5 13:5 14:5 15:5 16:5 17:5 18:6 19:4
+
+WAVE CENTRE: angle change from one wave to the next (around the screen centre), % of wave pairs:
+  -180deg:6 -135deg:11 -90deg:13 -45deg:14 +0deg:14 +45deg:14 +90deg:12 +135deg:11 +180deg:5
+  (a real rotation would put most pairs in one bin; ~equal bins = random)
+
+% OF NEW-WAVE DINOS CAUGHT BY 3 PRE-AIMED BLASTS (test games):
+  perfect                     72.9%
+  screen heatmap              13.6%
+  blind                       10.5%
+  best shift (1, 0)            9.1%
+  rot270                       8.7%
+  mirror x                     8.6%
+  rot180                       8.5%
+  mirror y                     8.3%
+  same as last                 8.3%
+  rot90                        8.2%
+
+If nothing beats 'blind' / 'screen heatmap' clearly, spawn spots are random within a game too.
+
+============================== Velociraptor ==============================
+species: Velociraptor
+1053 games, 9145 waves (8.7 per game), median 2 dinos per wave | train 842 / test 211 games
+
+SPAWN ROW on screen (0 = top, 19 = bottom), % of spawns:
+  0:4 1:3 2:3 3:6 4:5 5:5 6:5 7:5 8:5 9:5 10:5 11:5 12:6 13:6 14:6 15:6 16:6 17:6 18:6 19:3
+SPAWN COLUMN (0 = left), % of spawns:
+  0:5 1:5 2:5 3:5 4:5 5:5 6:5 7:6 8:5 9:5 10:5 11:5 12:5 13:5 14:5 15:5 16:5 17:5 18:5 19:4
+
+WAVE CENTRE: angle change from one wave to the next (around the screen centre), % of wave pairs:
+  -180deg:6 -135deg:13 -90deg:12 -45deg:12 +0deg:13 +45deg:13 +90deg:13 +135deg:12 +180deg:6
+  (a real rotation would put most pairs in one bin; ~equal bins = random)
+
+% OF NEW-WAVE DINOS CAUGHT BY 3 PRE-AIMED BLASTS (test games):
+  perfect                     93.6%
+  screen heatmap              11.1%
+  blind                       10.0%
+  same as last                 8.1%
+  best shift (1, 0)            8.0%
+  rot270                       8.0%
+  mirror x                     7.9%
+  rot90                        7.7%
+  rot180                       7.3%
+  best shift (-1, 2)           7.2%
+  mirror y                     6.7%
+
+If nothing beats 'blind' / 'screen heatmap' clearly, spawn spots are random within a game too.
+
+============================== Triceratops ==============================
+species: Triceratops
+1050 games, 4702 waves (4.5 per game), median 6 dinos per wave | train 840 / test 210 games
+
+SPAWN ROW on screen (0 = top, 19 = bottom), % of spawns:
+  0:4 1:4 2:5 3:4 4:4 5:4 6:5 7:5 8:5 9:5 10:5 11:5 12:5 13:6 14:6 15:6 16:6 17:6 18:6 19:3
+SPAWN COLUMN (0 = left), % of spawns:
+  0:4 1:6 2:6 3:5 4:5 5:5 6:5 7:5 8:5 9:5 10:5 11:5 12:5 13:5 14:5 15:6 16:5 17:6 18:6 19:4
+
+WAVE CENTRE: angle change from one wave to the next (around the screen centre), % of wave pairs:
+  -180deg:6 -135deg:11 -90deg:12 -45deg:14 +0deg:13 +45deg:12 +90deg:12 +135deg:13 +180deg:6
+  (a real rotation would put most pairs in one bin; ~equal bins = random)
+
+% OF NEW-WAVE DINOS CAUGHT BY 3 PRE-AIMED BLASTS (test games):
+  perfect                     82.7%
+  screen heatmap              12.8%
+  blind                       10.8%
+  best shift (-1, 0)           9.5%
+  same as last                 9.5%
+  best shift (1, 0)            9.5%
+  rot90                        9.1%
+  best shift (-1, 2)           8.8%
+  rot270                       8.7%
+  mirror x                     8.7%
+  mirror y                     8.5%
+  rot180                       7.9%
+
+If nothing beats 'blind' / 'screen heatmap' clearly, spawn spots are random within a game too.
+
+============================== Tyrannosaurus ==============================
+species: Tyrannosaurus
+1037 games, 3228 waves (3.1 per game), median 3 dinos per wave | train 829 / test 208 games
+
+SPAWN ROW on screen (0 = top, 19 = bottom), % of spawns:
+  0:3 1:5 2:3 3:6 4:4 5:5 6:4 7:5 8:5 9:5 10:5 11:5 12:6 13:5 14:6 15:6 16:5 17:7 18:8 19:2
+SPAWN COLUMN (0 = left), % of spawns:
+  0:2 1:9 2:5 3:5 4:5 5:5 6:5 7:6 8:5 9:4 10:4 11:5 12:5 13:5 14:6 15:5 16:4 17:5 18:8 19:2
+
+WAVE CENTRE: angle change from one wave to the next (around the screen centre), % of wave pairs:
+  -180deg:7 -135deg:12 -90deg:12 -45deg:13 +0deg:13 +45deg:11 +90deg:13 +135deg:12 +180deg:6
+  (a real rotation would put most pairs in one bin; ~equal bins = random)
+
+% OF NEW-WAVE DINOS CAUGHT BY 3 PRE-AIMED BLASTS (test games):
+  perfect                    100.0%
+  screen heatmap              12.8%
+  blind                        9.7%
+  best shift (1, 0)            7.2%
+  same as last                 6.8%
+  rot90                        6.7%
+  best shift (-1, 2)           6.4%
+  rot180                       6.3%
+  mirror x                     6.2%
+  best shift (-1, 0)           6.1%
+  mirror y                     6.0%
+  rot270                       5.8%
+  best shift (3, 1)            5.5%
+
+If nothing beats 'blind' / 'screen heatmap' clearly, spawn spots are random within a game too.
