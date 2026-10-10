@@ -1,9 +1,21 @@
-local_game_logs/
+# game logs and datasets (gigabytes, local only)
+logs/
 data/
+server_game_logs/
+local_game_logs/
+bot/logs/
+
+# built zips
+dist/
 *.zip
-ship*/
+
+# benchmark outputs (one printout per game)
+results/benchmark/
+
+# Python
 __pycache__/
+*.pyc
 .venv/
-*.npy
-*.npz
+
+# macOS
 .DS_Store
