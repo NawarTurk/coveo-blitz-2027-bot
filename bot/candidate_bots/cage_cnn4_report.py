@@ -9,6 +9,12 @@ The server only lets us download what the bot prints (the team log), so this bot
      m      falling meteors [x, y, turns left]          v   active volcanoes [x, y]
      lava   lava tiles [x, y] (only when it changes)     a   our action ["M", x, y] meteor / ["V", x, y] volcano / []
      ms     milliseconds the tick took
+     c      corpses [x, y] (only when they change)       err server errors on our last action (lastTickErrors)
+     tr     terrain rows not sent before: {world y: [[elevation, flags], ... one per x]}, flags 1 = impassable,
+            2 = mountain (whole window on the first tick, then each new row as the window scrolls)
+     ev     events this tick: ["S", id, species] spawned | ["D", id, cause] died, cause m = meteor, l = lava,
+            s = scrolled off, e = eaten by T-Rex, o = other
+     k      game constants (first tick only)
    Turn it off with TRACE = False.
 
 2. REPORT at the end of the game (lines start with "[REPORT]"): score, timing, meteors, kills per meteor,
@@ -48,6 +54,9 @@ class Bot(CB.Bot):
         self.born, self.info, self.dead = {}, {}, {}      # dino id -> spawn tick / species / death tick
         self.buckets = {}
         self.last_lava = None
+        self.last_corpses = None
+        self.sent_rows = set()
+        self.ev = []
 
     # ------------------------------------------------------------------ every tick (decisions untouched)
     def choose_actions(self, s):
@@ -73,6 +82,7 @@ class Bot(CB.Bot):
             if d["id"] not in self.born:
                 self.born[d["id"]] = T
                 self.info[d["id"]] = d["name"]
+                self.ev.append(["S", d["id"], SP.get(d["name"], "?")])
         p = self.prev_s
         b = self.buckets.setdefault(T // 100, [0, 0, 0])
         if p is not None and T == p["currentTick"] + 1:
@@ -93,17 +103,23 @@ class Bot(CB.Bot):
                 if hit:
                     self.r["d_meteor"] += 1
                     per_shot[hit[0]].append(d["age"])
+                    self.ev.append(["D", d["id"], "m"])
                 elif any(q in L for L in other):
                     self.r["d_meteor"] += 1
+                    self.ev.append(["D", d["id"], "m"])
                 elif any(0 <= q[1] + bb - oy < h and 0 <= q[0] + aa - ox < w and m["tiles"][q[1] + bb - oy][q[0] + aa - ox]["hasLava"]
                          for aa, bb in ((0, 0), (1, 0), (-1, 0), (0, 1), (0, -1))):
                     self.r["d_lava"] += 1
+                    self.ev.append(["D", d["id"], "l"])
                 elif q[1] < oy:
                     self.r["d_scroll"] += 1
+                    self.ev.append(["D", d["id"], "s"])
                 elif d["name"] != "Tyrannosaurus" and any(manh(q, x) <= 2 for x in trex):
                     self.r["d_eaten"] += 1
+                    self.ev.append(["D", d["id"], "e"])
                 else:
                     self.r["d_other"] += 1
+                    self.ev.append(["D", d["id"], "o"])
             for ages in per_shot:
                 k = len(ages)
                 self.r["kills"] += k
@@ -134,6 +150,7 @@ class Bot(CB.Bot):
                 self.r["volc"] += 1
                 a_out = ["V", a.target.x, a.target.y]
         if not TRACE:
+            self.ev = []
             return
         m = s["map"]
         ox, oy = m["origin"]["x"], m["origin"]["y"]
@@ -146,6 +163,26 @@ class Bot(CB.Bot):
         if lava != self.last_lava:
             rec["lava"] = lava
             self.last_lava = lava
+        corpses = sorted([p["x"], p["y"]] for p in s.get("corpses", []))
+        if corpses != self.last_corpses:
+            rec["c"] = corpses
+            self.last_corpses = corpses
+        tr = {}
+        for i, row in enumerate(m["tiles"]):
+            wy = i + oy
+            if wy not in self.sent_rows:
+                self.sent_rows.add(wy)
+                tr[wy] = [[tl["elevation"], int(tl["isImpassable"]) + 2 * int(tl["isMountain"])] for tl in row]
+        if tr:
+            rec["tr"] = tr
+        if s.get("lastTickErrors"):
+            rec["err"] = s["lastTickErrors"]
+        if self.ev:
+            rec["ev"] = self.ev
+        if T <= 1 or not getattr(self, "k_sent", False):
+            rec["k"] = s["constants"]
+            self.k_sent = True
+        self.ev = []
         print("T|" + json.dumps(rec, separators=(",", ":")))
 
     # ------------------------------------------------------------------ end of game
