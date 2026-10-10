@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """
-Run every analysis on the local game logs and write ONE Markdown report, ready to paste into an LLM
+Run every GAME analysis (waves, spawns, movement, species, physics = Q1-Q45 of results/research_questions.md)
+on the local game logs and write ONE Markdown report, ready to paste into an LLM
 to reason about the next bot.
 
-Usage:   python analysis/run_all_analyses.py --logs local_game_logs
-         python analysis/run_all_analyses.py --logs local_game_logs/n1_straggler_hunter --out results/report_n1.md
-Writes:  results/analysis_report.md       one Markdown report with everything (feed this to an LLM)
-         results/analysis/<name>.txt       each analysis's raw output on its own
+Usage:   python analysis/run_all_analyses.py --logs logs/local_game_logs [--games 300]     -> ..._local
+         python analysis/run_all_analyses.py --logs logs/server_game_logs                  -> ..._server
+         (server team logs must first be converted: python analysis/team_log_to_jsonl.py <txt files> --out logs/server_game_logs)
+Writes:  results/analysis_report_<local|server>.md   one Markdown report with every answer
+         results/analysis/<local|server>/<name>.txt   each script's output on its own
          (+ the CSV / PNG files some analyses write in results/)
 """
 import argparse, glob, os, subprocess, sys, time
@@ -17,24 +19,11 @@ ROOT = os.path.dirname(HERE)
 
 # (title, script, extra args, what the analysis answers)
 ANALYSES = [
-    ("Wave clear timing", "wave_clear_timing.py", [],
-     "How many ticks each wave takes to die (first kill, 50%, 80%, all), how the last dino of a wave dies, "
-     "per-species lifetimes, and how wave speed relates to score."),
-    ("Flee behaviour", "flee_behavior.py", [],
-     "How dinos react to a falling meteor: hit rate, first move (away / sideways / toward / stay), "
-     "escape paths, catch rate vs free escape tiles (walls), chain shots."),
-    ("T-Rex predation", "trex_predation.py", ["POSITIONAL"],
-     "How dinos die (meteor / lava / scroll / eaten / other), how many are eaten by a T-Rex and the points lost."),
-    ("Spawn sequence (exact tiles)", "spawn_sequence.py", [],
-     "Inside one game, can the next wave's spawn tiles be predicted from earlier waves "
-     "(same spots, rotation, mirror, shift, screen heatmap)? Scored by % of newborns 3 pre-aimed blasts would catch."),
-    ("Spawn sequence per species", "spawn_sequence_per_species.py", [],
-     "Same prediction test, one species at a time."),
-    ("Spawn blocks (3x3 screen blocks)", "spawn_blocks.py", [],
-     "Patterns in WHICH of 9 screen blocks waves spawn: sequence from wave to wave (information in bits vs shuffled), "
-     "memory (blocks repeat or cycle), spread inside a wave."),
-    ("Spawn blocks per species", "spawn_blocks_per_species.py", [],
-     "Same block tests, one species at a time."),
+    ("Waves (Q1-Q7)", "waves.py", [], "Wave rules: when waves come, timer reset, 20 cap, fixed species recipe, 10-wave cycle."),
+    ("Spawns (Q8-Q15)", "spawns.py", [], "Where dinos spawn: exact tiles, grids, species, wave number, repeats, clustering, terrain."),
+    ("Movement (Q16-Q25)", "movement.py", [], "How dinos move calm and threatened, flee patterns, predictability 1-4 ticks ahead, edges, scrolling."),
+    ("Species (Q26-Q36)", "species.py", [], "Species behaviour (Triceratops high ground, raptors and corpses, T-Rex eating, lava) and the site's strategy claims."),
+    ("Physics (Q37-Q45)", "physics.py", [], "Meteor catch rates vs escape tiles and obstacles, escapes, follow-up gaps, lava funnels, scoring formula."),
 ]
 
 CONTEXT = """\
@@ -46,30 +35,22 @@ CONTEXT = """\
 - Dinos (Stegosaurus, Velociraptor, Triceratops, T-Rex) move 1 tile per tick and flee meteors.
 - Points per kill = 160 / (1 + age/30) x multi-kill bonus (1 + 0.5 per extra kill on the same impact).
   Scroll deaths count; dinos eaten by a T-Rex give 0.
-- Waves of ~10 dinos every 100 ticks, OR 2 ticks after the board is empty.
-- Leaderboard: top 2 teams ~160k, ranks 3-6 ~36-47k, us ~15-19k.
-
-## Our bots (bot/candidate_bots/)
-
-- n4_survival_follow (best, ~19.5k avg, best 22,771): cage_cnn4 + timing fix + when every live dino is under a
-  falling meteor, fire a follow-up if its escape-tile count says it will likely survive, aimed where it stops.
-- cage_cnn4 (~15.4k avg before the timing fix): candidate spots around dinos and their escape tiles, ranked by a measured
-  "trap table" (catch rate vs free escape tiles), scored by CNN4 (predicts every dino's position at impact),
-  final score = 70% CNN4 + 30% trap table.
-- wide_search_cnn4 (~13.4k): same but scores ~150 spots incl. empty tiles near dinos.
-- species_heuristic (~8.4k): no ML, hand-written species flee simulation.
-- n1_straggler_hunter (~10k, 2 games): cage_cnn4 + bigger clear bonus + stragglers at full value + aim ahead of runners.
+- Waves of 10 dinos 100 ticks after the previous wave started, OR 1 tick after the board is empty; max 20 alive.
+- Species per wave follow a fixed 10-wave cycle: 10S / 8S2V / 6S4V / 2V8T / 6S4V / 2V7T1R / 6S4V / 2V7T1R / 2S2V3T3R / 3S4T3R.
 """
 
 
-def run(script, extra, logs):
+TAG = "local"
+
+
+def run(script, extra, logs, games=0):
     path = os.path.join(HERE, script)
     if not os.path.exists(path):
         return None, f"(script not found: analysis/{script})", 0.0
-    args = [logs] if extra == ["POSITIONAL"] else ["--logs", logs] + extra
+    args = [logs] if extra == ["POSITIONAL"] else ["--logs", logs] + extra + (["--games", str(games)] if games else [])
     t0 = time.time()
     p = subprocess.run([sys.executable, path] + args, cwd=ROOT, capture_output=True, text=True,
-                       env={**os.environ, "PYTHONPATH": os.pathsep.join([HERE, os.path.join(ROOT, "bot", "infrastructure")])})
+                       env={**os.environ, "ANALYSIS_TAG": TAG, "PYTHONPATH": os.pathsep.join([HERE, os.path.join(ROOT, "bot", "infrastructure")])})
     dt = time.time() - t0
     out = (p.stdout or "").rstrip()
     if p.returncode != 0:
@@ -80,44 +61,35 @@ def run(script, extra, logs):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--logs", default="local_game_logs")
-    ap.add_argument("--out", default="results/analysis_report.md")
-    ap.add_argument("--skip", nargs="*", default=[], help="script names to skip, e.g. flee_behavior.py")
+    ap.add_argument("--out", default="", help="default: results/analysis_report_<local|server>.md")
+    ap.add_argument("--tag", default="", help="local / server (default: 'server' if the logs path says server)")
+    ap.add_argument("--skip", nargs="*", default=[], help="script names to skip, e.g. species.py")
+    ap.add_argument("--games", type=int, default=0, help="only the newest N games (0 = all)")
     args = ap.parse_args()
     logs = args.logs
+    global TAG
+    TAG = args.tag or ("server" if "server" in logs.lower() else "local")
+    args.out = args.out or f"results/analysis_report_{TAG}.md"
     n_games = len(glob.glob(os.path.join(ROOT, logs, "game_*.jsonl")))
-    md = [f"# Analysis report\n",
-          f"Generated {datetime.now():%Y-%m-%d %H:%M} from `{logs}` ({n_games} local games).\n",
-          "Purpose: give an LLM the full picture to reason about the next bot improvement.\n",
+    md = [f"# Game analysis report\n",
+          f"Generated {datetime.now():%Y-%m-%d %H:%M} from `{logs}` ({n_games} {TAG} games"
+          + (f", newest {args.games} used" if args.games else "") + ").\n",
+          "Answers to the game questions Q1-Q45 (results/research_questions.md). Game facts only, no bot results.\n",
           CONTEXT]
-    readme = os.path.join(ROOT, "README.md")
-    if os.path.exists(readme):
-        r = open(readme).read()
-        a, b = r.find("## Results"), r.find("\n---", r.find("## Results"))
-        if a >= 0:
-            md += [r[a:b if b > a else None].replace("## Results", "## Server results so far", 1).rstrip() + "\n"]
     md.append("## Analyses\n")
-    txt_dir = os.path.join(ROOT, os.path.dirname(args.out) or "results", "analysis")
-    os.makedirs(txt_dir, exist_ok=True)
     for title, script, extra, what in ANALYSES:
         if script in args.skip:
             continue
         print(f"running {script} ...", flush=True)
-        code, out, dt = run(script, extra, logs)
+        code, out, dt = run(script, extra, logs, args.games)
         status = "" if code == 0 else " (FAILED)" if code is not None else " (MISSING)"
         md += [f"### {title}{status}\n", f"*Question:* {what}\n", f"*Script:* `analysis/{script}` ({dt:.0f} s)\n",
                "```", out or "(no output)", "```\n"]
-        with open(os.path.join(txt_dir, os.path.splitext(script)[0] + ".txt"), "w") as f:
-            f.write(f"{title}\n{what}\nlogs: {logs} ({n_games} games)\n\n{out}\n")
         print(f"   done in {dt:.0f} s{status}")
-    md += ["## Questions for the next step\n",
-           "1. Where does the time per wave go, and which change would clear waves fastest?",
-           "2. Is anything predictable that the bot does not use yet (spawns, flee direction, species)?",
-           "3. Which single change to cage_cnn4 should be tested next, and how to measure it fairly "
-           "(same seeds, 100 local games)?\n"]
     out_path = os.path.join(ROOT, args.out)
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     open(out_path, "w").write("\n".join(md))
-    print(f"\nwrote {args.out} and {os.path.relpath(txt_dir, ROOT)}/*.txt")
+    print(f"\nwrote {args.out} and results/analysis/{TAG}/*.txt")
 
 
 if __name__ == "__main__":
