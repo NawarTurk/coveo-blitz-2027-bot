@@ -10,7 +10,12 @@ Each score is one server game. Maps change every game, so one game can swing by 
 | Ver | Bot | Idea | Server scores | Avg |
 |---|---|---|---|---|
 | - | **`n4_survival_follow`** | **Best.** Cage B + timing fix + "will it survive?" check + follow-up shots where fleeing dinos stop | 16,335 / 22,771 / 19,361 | **19,489** |
-| - | `n5_hold_trapped` | N4 + hold when a doomed dino has only 1-3 escape tiles | pending | - |
+| - | `n10_wave_modes` | N8 + candidate strategy per wave group (runner / pack / T-Rex) | pending | - |
+| - | `n9_lava_funnel` | N8 + volcano chosen to block escape routes | pending | - |
+| - | `n8_future_spots` | N7 + spots where dinos WILL be (one no-meteor CNN4 forecast) | pending | - |
+| - | `n7_safe_timing` | N6 + timing recovery on slow servers (cooldown, 4-spot probe, ramp up) | 17,902 / 19,218 / 15,766 | 17,629 |
+| - | `n6_follow_budget` | N4 + follow-up spots capped to ~25% of the CNN4 budget | 19,701 / 14,702 | 17,202 |
+| - | `n5_hold_trapped` | N4 + hold when a doomed dino has only 1-3 escape tiles | 14,267 / 14,626 | 14,447 |
 | - | N4 before timing fix | same as N4, but CNN4 got stuck (229 blind shots) | 10,222 | 10,222 |
 | v32 | `cage_cnn4_report` | Cage B + per-tick trace + end-of-game report | 14,741 | 14,741 |
 | v31 | `n1_straggler_hunter` | Cage B + clear bonus 10 + stragglers at full value + aim ahead of runners | 9,710 / 10,345 | 10,028 |
@@ -48,10 +53,28 @@ CNN1 = predicts each dino's next move (1 tick ahead). CNN4 = predicts where dino
   (every shot blind). Fixed in `cage_cnn4.py` with `UNIT_CAP = 3` ms. Some old low scores may be this bug.
 - **Follow-up shots (N4):** Cage B held fire when every dino was under a falling meteor, but 71% of those dinos
   escaped. Firing a follow-up where they stop: ~15k -> ~19.5k.
-- Dinos with only 1-3 escape tiles survive ~17% of the time, so holding is right for them (N5).
+- Holding fire for dinos with 1-3 escape tiles (N5) scored worse (~14.4k): when the last dino escapes, the whole
+  wave waits, so a cheap wasted shot beats a missed straggler.
+- Capping follow-up spots (N6) and safe timing (N7) changed little in score (~17-18k, within map luck); N7 cut
+  missed ticks from 2-6 to 1-2 per game.
 - Did not help: aiming at empty tiles (Z1), prev7 models, hand-written behaviour rules (ZH1), the new CNN4 (N0),
   big straggler bonuses (N1).
 - Spawns are random; CNN4 is well calibrated; T-Rex meals cost only ~4%.
+
+### Game facts (1,054 local games, `results/research_answers.md`)
+
+- Next wave: 1 tick after the board is empty, otherwise 100 ticks after the previous wave started (timer resets).
+  Max 20 dinos alive; a wave only fills the free slots.
+- Species per wave follow a fixed 10-wave cycle: 10S | 8S 2V | 6S 4V | 2V 8T | 6S 4V | 2V 7T 1R | 6S 4V | 2V 7T 1R |
+  2S 2V 3T 3R | 3S 4T 3R. Spawn **positions** are random (tile, grid, species, wave, terrain: all tested).
+- Catch rate by free escape tiles: 0 -> 97%, 1-3 -> 60%, 4-7 -> 35%, 8-14 -> 13%, 15+ -> 3%.
+  Open ground 3% vs ~27-30% next to walls, mountains, lava or the window edge.
+- Escaped dinos end 3-5 tiles from the blast centre; a second blast 3 tiles out along the escape line covers 69%.
+- A dino next to a T-Rex is eaten the next tick 65% of the time (always from 1 tile).
+- Stegosaurus almost never stands still (14%); raptors and T-Rex stand still ~50%.
+- Scoring: 160 / (1 + age/30) exactly; multi-kill x1.5 (2) and x1.93 (3).
+- The site's "Strategy" claims (NE quadrant, counter-clockwise herds, double-bounce) and raptors-to-corpses
+  are not supported by the data.
 
 ---
 
@@ -68,7 +91,8 @@ pip install -r requirements.txt matplotlib pandas scikit-learn
 ## 1. Ship a bot
 
 ```bash
-./scripts/ship.sh n4_survival_follow   # -> n4_survival_follow.zip, ready to upload
+./scripts/ship.sh n4_survival_follow   # -> dist/n4_survival_follow.zip, ready to upload
+./scripts/move_zips_to_dist.sh         # tidy: move any stray *.zip from the repo root into dist/
 ```
 
 `ship.sh` copies `bot/` to a temporary folder, makes `bot.py` load the bot you name, turns game logging off,
@@ -89,7 +113,12 @@ Scores are in **Results** above.
 | Bot | Idea |
 |---|---|
 | `n4_survival_follow` | **Best.** `cage_cnn4` + when every dino is under a falling meteor, fire a follow-up if it will likely survive (escape-tile count) + follow-up spots where fleeing dinos stop. Full trace + `[N4]` logs. |
-| `n5_hold_trapped` | N4, but holds when a doomed dino has only 1-3 escape tiles (cutoff 0.5 -> 0.6). |
+| `n5_hold_trapped` | N4, but holds when a doomed dino has only 1-3 escape tiles (cutoff 0.5 -> 0.6). Worse. |
+| `n6_follow_budget` | N4 + follow-up spots sorted by trap score, only max(2, budget/4) of them go first. |
+| `n7_safe_timing` | N6 + timing recovery: after a slow tick, cooldown 3 ticks, probe 4 spots, ramp 8 -> 16 -> normal. |
+| `n8_future_spots` | N7 + one no-meteor CNN4 forecast; the 6 best new "where dinos will be" spots get guaranteed slots. |
+| `n9_lava_funnel` | N8 + volcano chosen to cut escape routes of dinos under a falling meteor. |
+| `n10_wave_modes` | N8 + per wave group: runner (10 future spots), pack (Triceratops group centres), T-Rex (spots on the T-Rex and its prey). `[N10]` logs ticks per wave type. |
 | `cage_cnn4` | Base of all bots: spots around dinos and their escape tiles, ranked by a measured trap table, scored by CNN4. Includes the timing fix (`UNIT_CAP`). |
 | `cage_cnn4_report` | Same decisions as `cage_cnn4`, prints a per-tick trace and an end-of-game report for analysis. |
 | `wide_search_cnn4` | CNN4 also scores empty tiles near dinos (~150 spots). |
@@ -114,9 +143,9 @@ All bots run on the shared engine in `bot/infrastructure/` (planners, scoring, C
 export PYTHONPATH=bot/infrastructure
 
 # play games locally (local game server + LOG_GAMES = True), then:
-mv bot/logs/game_*.jsonl local_game_logs/
+mv bot/logs/game_*.jsonl logs/local_game_logs/
 
-python training/build_cnn4_dataset.py --logs local_game_logs --out data/cnn4
+python training/build_cnn4_dataset.py --logs logs/local_game_logs --out data/cnn4
 python training/tune_cnn4.py --data data/cnn4                     # optional: 4-fold CV hyper-parameter search
 python training/train_cnn4.py --data data/cnn4 --out data/new_model/model.pt
 python training/eval_cnn4.py --model data/new_model/model.pt --split data/cnn4
@@ -126,22 +155,28 @@ cp data/new_model/model.pt bot/models/cnn_lookahead_4/model.pt   # if it is bett
 
 ---
 
-## 4. Analyse games
+## 4. Analyse the game
 
 ```bash
-python analysis/run_all_analyses.py --logs local_game_logs
+python analysis/run_all_analyses.py --logs logs/local_game_logs [--games 300]
+# server games: convert the downloaded team logs first
+python analysis/team_log_to_jsonl.py logs/server_game_logs/*.txt --out logs/server_game_logs
+python analysis/run_all_analyses.py --logs logs/server_game_logs
 ```
 
-Runs every analysis and writes `results/analysis_report.md` (one document, ready to give to an LLM)
-plus each analysis on its own in `results/analysis/`.
+Answers the 45 game questions in `results/research_questions.md` (rules, spawns, dino behaviour, physics):
+`results/analysis_report_<local|server>.md` (everything in one file) and `results/analysis/<local|server>/*.txt`.
+Summary of the answers: `results/research_answers.md`. Bot-performance questions (Q46-Q74) are listed but not built yet.
 
-| Script | Question |
+| Script | Questions |
 |---|---|
-| `wave_clear_timing.py` (+ `_per_species`) | How many ticks a wave takes to die, who the last survivor is |
-| `flee_behavior.py` | How dinosaurs react to a falling meteor |
-| `trex_predation.py` | How dinosaurs die; points lost to T-Rex meals |
-| `spawn_sequence.py`, `spawn_blocks.py` (+ `_per_species`) | Can spawn positions be predicted? |
-| `build_meteor_table.py`, `fit_meteor_models.py` | Do heuristics add information beyond CNN4? |
+| `waves.py` | Q1-Q7 wave rules: timing, timer reset, 20 cap, species recipe, 10-wave cycle |
+| `spawns.py` | Q8-Q15 where dinos spawn |
+| `movement.py` | Q16-Q25 how dinos move and react, predictability, window edge, scrolling |
+| `species.py` | Q26-Q36 species behaviour and the site's strategy claims |
+| `physics.py` | Q37-Q45 catch rates, escapes, follow-ups, lava, scoring formula |
+| `common.py` | shared loading and helpers |
+| `team_log_to_jsonl.py` | server team logs -> local log format |
 
 ---
 
@@ -151,7 +186,9 @@ plus each analysis on its own in `results/analysis/`.
 |---|---|
 | `bot/` | Uploaded code: `bot.py` (picks the bot), starter kit, `candidate_bots/`, `infrastructure/`, `models/` |
 | `training/` | Build datasets, tune, train and evaluate the CNNs |
-| `analysis/` | Studies on game logs |
-| `results/` | Analysis outputs and the combined report |
-| `scripts/` | `ship.sh` |
-| `local_game_logs/`, `data/` | Local only (git-ignored): recorded games and datasets |
+| `analysis/` | Game analysis scripts (Q1-Q45) |
+| `results/` | Research questions and answers, analysis reports |
+| `scripts/` | `ship.sh` (build a zip), `move_zips_to_dist.sh`, `benchmark.sh` |
+| `dist/` | Built zips (git-ignored) |
+| `logs/` | `local_game_logs/`, `server_game_logs/` (git-ignored) |
+| `data/` | Datasets for training (git-ignored) |
