@@ -1,0 +1,42 @@
+species.py | 1054 games from logs/local_game_logs
+
+Q26. Do dinos gather in the NE / near elevation 7+?
+    -> NW 27.0% NE 27.1% SW 22.8% SE 23.0% | on elevation 7+: dinos 60.0% vs tiles 60.8%
+
+Q27. Do Triceratops herds rotate counter-clockwise?
+    -> counter-clockwise 50.0% vs clockwise 50.0% (n=738604; claim: 83%)
+
+Q28. Does a "double-bounce" shockwave exist?
+    -> unexplained deaths: 96, of which near a landing meteor: 18 (check these)
+
+Q29. Do Triceratops move toward high ground?
+    -> calm Triceratops step uphill 30.0% vs 29.0% for a random open move (lift x1.03)
+
+Q30. Does Triceratops movement follow increasing elevation?
+    -> mean elevation change per move +0.07 vs -0.10 for a random open move
+
+Q31. How tight are Triceratops packs; is the centroid predictable 4 ticks ahead?
+    -> mean distance to the pack centre 5.3 tiles; centroid error 4 ticks ahead: constant velocity 3.1 vs stay 1.8 tiles (n=256699)
+
+Q32. Do raptors move toward corpses? Radius?
+    -> calm raptors stepping closer to the nearest corpse, by distance:
+       corpse 1-3   tiles: 24.5% vs random open move 26.7% (lift x0.92, n=261246)
+       corpse 4-6   tiles: 37.2% vs random open move 36.0% (lift x1.03, n=184968)
+       corpse 7-12  tiles: 39.5% vs random open move 38.9% (lift x1.01, n=208636)
+       corpse 13+   tiles: 35.1% vs random open move 43.1% (lift x0.81, n=125118)
+
+Q33. Is distance to the nearest corpse predictive of raptor moves?
+    -> overall lift x0.95 (1.0 = no effect); see the distances above
+
+Q34. Does corpse attraction stop when a raptor is threatened?
+    -> threatened raptors step toward a corpse 33.0% vs random 34.1% (lift x0.97, n=105071)
+
+Q35. When exactly does a T-Rex eat another dino?
+    -> 4861 meals; prey: {'T': 2043, 'V': 911, 'S': 1907}; T-Rex distance the tick before: {1: 4861}; a dino next to a T-Rex is eaten the next tick 65.4%
+
+Q36. How strongly / from how far do dinos avoid lava?
+    -> calm dinos stepping closer to lava, by distance:
+       lava 1 tiles away: 0.0% vs random open move 27.5% (lift x0.00, n=298973)
+       lava 2 tiles away: 21.7% vs random open move 32.2% (lift x0.67, n=433820)
+       lava 3 tiles away: 23.8% vs random open move 33.0% (lift x0.72, n=416512)
+       lava 4 tiles away: 26.5% vs random open move 33.7% (lift x0.79, n=422398)

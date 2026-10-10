@@ -1,0 +1,42 @@
+waves.py | 1054 games from logs/local_game_logs
+
+Q1. When does a new wave arrive?
+    -> after a clear: {1: 6562} ticks after the board went empty (n=6562); otherwise on the timer. Triggers: {'start': 1054, 'timer': 5540, 'clear': 6562}
+
+Q2. Does the wave timer reset after we clear the board?
+    -> timed waves come exactly 100 ticks after the previous wave started: 5540 waves; their ticks mod 100 spread over 100 different values (resets: not fixed multiples of 100)
+
+Q3. How many dinos can be alive at once, and what happens to a wave at the cap?
+    -> max alive seen 20; waves arriving with dinos still alive: 5446, of which 314 filled exactly up to 20
+       waves arriving with N alive -> new dinos: 1:10, 2:10, 3:10, 4:10, 5:10, 6:10, 7:10, 8:10, 9:10, 10:10, 11:9, 12:8
+
+Q4. At the 20 cap, which members of a wave are omitted?
+    -> 1689 partial waves; missing dinos by species: {'V': 643, 'T': 943, 'S': 627, 'R': 235}
+
+Q5. Is the species mix of each wave fixed?
+    -> yes
+       wave  1: 10S            100.0% of 1054 games
+       wave  2: 8S 2V          85.0% of 1054 games
+       wave  3: 6S 4V          80.3% of 1054 games
+       wave  4: 2V 8T          80.5% of 1053 games
+       wave  5: 6S 4V          85.1% of 1052 games
+       wave  6: 2V 7T 1R       74.9% of 1051 games
+       wave  7: 6S 4V          85.8% of 1050 games
+       wave  8: 2V 7T 1R       76.2% of 1050 games
+       wave  9: 2S 2V 3T 3R    67.7% of 1050 games
+       wave 10: 3S 4T 3R       68.5% of 1050 games
+       wave 11: 10S            84.9% of 817 games
+       wave 12: 8S 2V          93.0% of 571 games
+       wave 13: 6S 4V          95.5% of 449 games
+       wave 14: 2V 8T          95.9% of 290 games
+       wave 15: 6S 4V          96.0% of 201 games
+       wave 16: 2V 7T 1R       90.3% of 155 games
+       wave 17: 6S 4V          95.9% of 98 games
+       wave 18: 2V 7T 1R       87.2% of 39 games
+       wave 19: 2S 2V 3T 3R    85.7% of 14 games
+
+Q6. Does the mix repeat in a cycle? How long?
+    -> wave k = wave k+10 in 86.5% of 2638 pairs; cycle: 10S | 8S 2V | 6S 4V | 2V 8T | 6S 4V | 2V 7T 1R | 6S 4V | 2V 7T 1R | 2S 2V 3T 3R | 3S 4T 3R
+
+Q7. Same cycle locally and on the server?
+    -> pass --server <folder of team logs> to compare

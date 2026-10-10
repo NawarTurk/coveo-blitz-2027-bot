@@ -1,0 +1,64 @@
+movement.py | 1054 games from logs/local_game_logs
+
+Q16. How does each species move with no threat?
+    -> calm moves per species (down = +y = the way the window scrolls):
+       S: stay 13.7% up 9.7% down 27.6% left 24.7% right 24.4% (n=1915255)
+       V: stay 50.5% up 9.1% down 17.2% left 11.6% right 11.5% (n=683062)
+       T: stay 27.4% up 13.8% down 26.6% left 16.0% right 16.2% (n=592425)
+       R: stay 54.3% up 7.0% down 18.3% left 10.1% right 10.3% (n=358965)
+
+Q17. How does each species react to a meteor launched near it?
+    -> first move while inside a falling blast:
+       S: away 70.7% sideways 0.0% toward 3.0% stay 26.2% (n=376477) | calm stay 13.7%
+       V: away 68.0% sideways 0.0% toward 5.1% stay 26.9% (n=125880) | calm stay 50.5%
+       T: away 76.3% sideways 0.0% toward 3.9% stay 19.8% (n=173101) | calm stay 27.4%
+       R: away 80.1% sideways 0.0% toward 6.7% stay 13.2% (n=45602) | calm stay 54.3%
+
+Q18. Does reaction depend on distance from the blast centre?
+    -> by distance from the centre (0 = on it):
+       0: away 98.0% sideways 0.0% toward 0.0% stay 2.0% (n=29528)
+       1: away 91.1% sideways 0.0% toward 5.5% stay 3.4% (n=176251)
+       2: away 64.2% sideways 0.0% toward 3.5% stay 32.3% (n=515281)
+
+Q19. Does reaction change with 4 / 3 / 2 / 1 ticks to impact?
+    -> by turns until impact:
+       4: away 79.5% sideways 0.0% toward 4.0% stay 16.5% (n=371139)
+       3: away 70.4% sideways 0.0% toward 4.0% stay 25.6% (n=233503)
+       2: away 52.4% sideways 0.0% toward 3.0% stay 44.6% (n=116418)
+
+Q20. When fleeing: straight away, sideways, toward, or stay?
+    -> away 72.2% sideways 0.0% toward 3.8% stay 24.0% (n=721060)
+
+Q21. How far from the centre does a fleeing dino end up?
+    -> d=1: 0.0%, d=2: 0.0%, d=3: 41.8%, d=4: 37.6%, d=5: 20.6% | ran straight away 69.4%
+
+Q22. How predictable is a dino 1-4 ticks ahead, by species?
+    -> exact tile hit rate, predictor 'last move' (stay in brackets), mean error in tiles:
+       S: 1t: 40.2% (15.5%) err 1.1 | 2t: 20.9% (22.8%) err 2.0 | 3t: 11.1% (8.5%) err 3.1 | 4t: 6.7% (12.4%) err 4.2
+       V: 1t: 58.5% (49.8%) err 0.6 | 2t: 41.2% (42.3%) err 1.3 | 3t: 31.1% (34.0%) err 2.0 | 4t: 25.2% (29.3%) err 2.7
+       T: 1t: 43.7% (26.0%) err 1.0 | 2t: 26.3% (34.0%) err 1.9 | 3t: 17.2% (17.7%) err 2.8 | 4t: 13.1% (22.2%) err 3.8
+       R: 1t: 49.3% (48.0%) err 0.7 | 2t: 33.3% (41.9%) err 1.4 | 3t: 23.8% (30.2%) err 2.2 | 4t: 18.5% (26.4%) err 2.9
+
+Q23. How much does movement history help prediction?
+    -> exact hit rate 4 ticks ahead, all species:
+       stay                 18.2%
+       last move            12.1%
+       majority of last 3   11.9%
+
+Q24. How does the window edge affect movement per species?
+    -> calm moves by screen row band:
+       S top 0-2      : stay 32.0% up 7.3% down 28.7% left 16.2% right 15.8% (n=171617)
+       S middle       : stay 11.9% up 9.4% down 27.8% left 25.5% right 25.3% (n=1699738)
+       S bottom 17-19 : stay 12.4% up 28.4% down 12.9% left 24.4% right 21.8% (n=43900)
+       V top 0-2      : stay 49.0% up 4.1% down 29.3% left 8.7% right 8.9% (n=121247)
+       V middle       : stay 51.9% up 10.2% down 14.4% left 11.9% right 11.7% (n=512372)
+       V bottom 17-19 : stay 39.7% up 11.0% down 16.8% left 16.6% right 15.8% (n=49443)
+       T top 0-2      : stay 35.7% up 6.6% down 27.6% left 14.8% right 15.2% (n=101442)
+       T middle       : stay 26.7% up 15.0% down 26.7% left 15.8% right 15.8% (n=424754)
+       T bottom 17-19 : stay 18.7% up 16.5% down 24.9% left 19.6% right 20.3% (n=66229)
+       R top 0-2      : stay 46.9% up 4.3% down 32.2% left 8.1% right 8.5% (n=67299)
+       R middle       : stay 56.8% up 8.7% down 14.3% left 10.1% right 10.1% (n=239713)
+       R bottom 17-19 : stay 52.4% up 2.3% down 18.7% left 13.0% right 13.6% (n=51953)
+
+Q25. Which dinos die by scrolling, and can it be predicted?
+    -> 10491 scroll deaths (S 4706 of 56006 deaths, V 2410 of 26819 deaths, T 2444 of 32182 deaths, R 931 of 7545 deaths); dinos on the top row just before a shift die by scroll 39.5%
