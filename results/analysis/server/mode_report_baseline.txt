@@ -1,0 +1,270 @@
+MODE REPORT
+10c7e807-attachment.txt        bot ?    score  14741 (no terrain in log: trapped flag less accurate)
+19e7b83a-attachment.txt        bot N4   score  14626 (no terrain in log: trapped flag less accurate)
+204c9b7a-89.txt                bot N8   score  12258 (no terrain in log: trapped flag less accurate)
+2e6fee9c-88.txt                bot N8   score  17942 (no terrain in log: trapped flag less accurate)
+38eca298-attachment.txt        bot N7   score  17902 (no terrain in log: trapped flag less accurate)
+3d9ea969-83.txt                bot N7   score  13119 (no terrain in log: trapped flag less accurate)
+3e76b42b-attachment.txt        bot N11  score  14185 
+5c3ee3fb-attachment.txt        bot N4   score  19361 (no terrain in log: trapped flag less accurate)
+5cdbbd0f-attachment.txt        bot N4   score  22771 (no terrain in log: trapped flag less accurate)
+60958715-attachment.txt        bot N4   score  14267 (no terrain in log: trapped flag less accurate)
+65e5ade1-attachment.txt        bot N7   score  19218 (no terrain in log: trapped flag less accurate)
+80be7e8e-82.txt                bot N6   score  12464 (no terrain in log: trapped flag less accurate)
+9ccbacc8-attachment.txt        bot N10  score  13551 
+9ddfb626-81.txt                bot N6   score  13974 (no terrain in log: trapped flag less accurate)
+a34e5527-attachment.txt        bot N10  score  17340 
+c0bc1ed4-attachment.txt        bot N11  score  15658 
+ce74741c-87.txt                bot N8   score  18679 (no terrain in log: trapped flag less accurate)
+d53986e9-attachment.txt        bot N10  score  14749 
+e3f2d0fb-attachment.txt        bot N6   score  19701 (no terrain in log: trapped flag less accurate)
+f2cfd13e-attachment.txt        bot N6   score  14702 (no terrain in log: trapped flag less accurate)
+f3e045fe-attachment.txt        bot N7   score  15766 (no terrain in log: trapped flag less accurate)
+f63d4573-85.txt                bot N7   score  15266 (no terrain in log: trapped flag less accurate)
+
+=== ALL BOTS | 22 games ===
+mode        ticks  share  shots shots/t  kills kill/shot  zero%  points pts/tick eaten avg stay stays
+straggler    6125  27.8%   3604    0.59    605     0.168    83%   38177      6.2     0     17.1   358
+rex           173   0.8%    103    0.60     31     0.301    71%    3652     21.1     2      2.8    61
+pack         3999  18.2%   2458    0.61    727     0.296    72%   74714     18.7     5     12.7   315
+crowd        5909  26.9%   3610    0.61   1022     0.283    73%  108518     18.4     4     17.9   331
+normal       5458  24.8%   3277    0.60    689     0.210    79%   49242      9.0     4     13.5   405
+empty         336   1.5%      0    0.00      0     0.000     0%       0      0.0     0      1.0   336
+ALL         22000 100.0%  13052    0.59   3074     0.236    77%  274304     12.5    15      0.0     0
+flags (overlap with modes):
+  trapped   ticks   3696 (17%) | shots 2182 | kills 692 = 0.317/shot
+  rex_risk  ticks    388 (2%) | shots 243 | kills 74 = 0.305/shot
+  pack      ticks   4203 (19%) | shots 2584 | kills 756 = 0.293/shot
+straggler stays ended by: cleared (board empty) 336, next wave arrived 15, game ended 7
+straggler stay length: median 15 | 80% 22 | max 67 ticks
+straggler detail:
+  1 dino  left: ticks  3393 | shots  1964 | kills/shot 0.155
+  2 dinos left: ticks  2732 | shots  1640 | kills/shot 0.183
+  first shots (no meteor on that dino yet):   624 | kills/shot 0.115
+  extra shots (a meteor already falling on it):  2980 | kills/shot 0.179
+  by species (ticks it was a straggler | shots aimed at it | kills/shot):
+    S: ticks  3843 | shots  2066 | kills/shot 0.153
+    V: ticks  1017 | shots   464 | kills/shot 0.196
+    T: ticks  1358 | shots   677 | kills/shot 0.192
+    R: ticks   857 | shots   397 | kills/shot 0.169
+  last-dino chases (1 dino on the board; cleared = it died and the board emptied):
+    S:  188 chases | cleared  94% | median ticks   9 | median shots to finish   5 | worst 60 ticks
+    V:   48 chases | cleared  98% | median ticks   5 | median shots to finish   3 | worst 20 ticks
+    T:   75 chases | cleared  99% | median ticks   8 | median shots to finish   5 | worst 28 ticks
+    R:   35 chases | cleared  94% | median ticks   8 | median shots to finish   5 | worst 48 ticks
+
+=== bot ? | 1 games ===
+mode        ticks  share  shots shots/t  kills kill/shot  zero%  points pts/tick eaten avg stay stays
+straggler     385  38.5%    156    0.41     23     0.147    85%    1284      3.3     0     25.7    15
+pack          196  19.6%    122    0.62     41     0.336    68%    4114     21.0     0     17.8    11
+crowd         226  22.6%    137    0.61     48     0.350    66%    5243     23.2     0     16.1    14
+normal        179  17.9%    109    0.61     27     0.248    75%    1988     11.1     0     12.8    14
+empty          14   1.4%      0    0.00      0     0.000     0%       0      0.0     0      1.0    14
+ALL          1000 100.0%    524    0.52    139     0.265    74%   12628     12.6     0      0.0     0
+flags (overlap with modes):
+  trapped   ticks    154 (15%) | shots 88 | kills 35 = 0.398/shot
+  rex_risk  ticks     19 (2%) | shots 13 | kills 3 = 0.231/shot
+  pack      ticks    203 (20%) | shots 126 | kills 41 = 0.325/shot
+straggler stays ended by: cleared (board empty) 14, next wave arrived 1
+straggler stay length: median 20 | 80% 43 | max 65 ticks
+straggler detail:
+  1 dino  left: ticks   280 | shots    98 | kills/shot 0.133
+  2 dinos left: ticks   105 | shots    58 | kills/shot 0.172
+  first shots (no meteor on that dino yet):    29 | kills/shot 0.069
+  extra shots (a meteor already falling on it):   127 | kills/shot 0.165
+  by species (ticks it was a straggler | shots aimed at it | kills/shot):
+    S: ticks   245 | shots    92 | kills/shot 0.152
+    V: ticks    17 | shots     5 | kills/shot 0.400
+    T: ticks    61 | shots    24 | kills/shot 0.208
+    R: ticks   112 | shots    35 | kills/shot 0.057
+  last-dino chases (1 dino on the board; cleared = it died and the board emptied):
+    S:    9 chases | cleared 100% | median ticks  15 | median shots to finish   5 | worst 38 ticks
+    V:    1 chases | cleared 100% | median ticks   6 | median shots to finish   1 | worst 6 ticks
+    T:    3 chases | cleared 100% | median ticks   8 | median shots to finish   2 | worst 10 ticks
+    R:    2 chases | cleared  50% | median ticks  48 | median shots to finish   7 | worst 48 ticks
+
+=== bot N10 | 3 games ===
+mode        ticks  share  shots shots/t  kills kill/shot  zero%  points pts/tick eaten avg stay stays
+straggler     941  31.4%    566    0.60     77     0.136    86%    4822      5.1     0     20.0    47
+rex            23   0.8%     16    0.70      5     0.312    69%     579     25.2     1      2.3    10
+pack          427  14.2%    260    0.61     76     0.292    72%    7919     18.5     1     11.9    36
+crowd         836  27.9%    508    0.61    139     0.274    74%   14679     17.6     3     19.0    44
+normal        731  24.4%    442    0.60     96     0.217    79%    6828      9.3     4     13.8    53
+empty          42   1.4%      0    0.00      0     0.000     0%       0      0.0     0      1.0    42
+ALL          3000 100.0%   1792    0.60    393     0.219    79%   34826     11.6     9      0.0     0
+flags (overlap with modes):
+  trapped   ticks    863 (29%) | shots 501 | kills 145 = 0.289/shot
+  rex_risk  ticks     48 (2%) | shots 29 | kills 10 = 0.345/shot
+  pack      ticks    450 (15%) | shots 276 | kills 80 = 0.290/shot
+straggler stays ended by: cleared (board empty) 42, next wave arrived 4, game ended 1
+straggler stay length: median 17 | 80% 25 | max 67 ticks
+straggler detail:
+  1 dino  left: ticks   571 | shots   342 | kills/shot 0.120
+  2 dinos left: ticks   370 | shots   224 | kills/shot 0.161
+  first shots (no meteor on that dino yet):    89 | kills/shot 0.101
+  extra shots (a meteor already falling on it):   477 | kills/shot 0.143
+  by species (ticks it was a straggler | shots aimed at it | kills/shot):
+    S: ticks   659 | shots   351 | kills/shot 0.114
+    V: ticks   158 | shots    72 | kills/shot 0.181
+    T: ticks   181 | shots    91 | kills/shot 0.154
+    R: ticks   121 | shots    52 | kills/shot 0.192
+  last-dino chases (1 dino on the board; cleared = it died and the board emptied):
+    S:   27 chases | cleared  89% | median ticks  10 | median shots to finish   6 | worst 60 ticks
+    V:    6 chases | cleared 100% | median ticks   7 | median shots to finish   4 | worst 15 ticks
+    T:    8 chases | cleared  88% | median ticks  10 | median shots to finish   6 | worst 21 ticks
+    R:    4 chases | cleared 100% | median ticks  13 | median shots to finish   8 | worst 13 ticks
+
+=== bot N11 | 2 games ===
+mode        ticks  share  shots shots/t  kills kill/shot  zero%  points pts/tick eaten avg stay stays
+straggler     439  21.9%    264    0.60     51     0.193    81%    3154      7.2     0     13.7    32
+rex            25   1.2%     16    0.64      7     0.438    56%     886     35.4     1      2.8     9
+pack          407  20.3%    250    0.61     67     0.268    74%    6481     15.9     4     11.6    35
+crowd         528  26.4%    320    0.61     84     0.263    74%    9004     17.1     1     18.2    29
+normal        572  28.6%    343    0.60     63     0.184    83%    4172      7.3     0     13.0    44
+empty          29   1.5%      0    0.00      0     0.000     0%       0      0.0     0      1.0    29
+ALL          2000 100.0%   1193    0.60    272     0.228    78%   23696     11.8     6      0.0     0
+flags (overlap with modes):
+  trapped   ticks    485 (24%) | shots 288 | kills 97 = 0.337/shot
+  rex_risk  ticks     51 (3%) | shots 33 | kills 12 = 0.364/shot
+  pack      ticks    424 (21%) | shots 261 | kills 72 = 0.276/shot
+straggler stays ended by: cleared (board empty) 29, next wave arrived 2, game ended 1
+straggler stay length: median 14 | 80% 18 | max 21 ticks
+straggler detail:
+  1 dino  left: ticks   227 | shots   138 | kills/shot 0.181
+  2 dinos left: ticks   212 | shots   126 | kills/shot 0.206
+  first shots (no meteor on that dino yet):    55 | kills/shot 0.164
+  extra shots (a meteor already falling on it):   209 | kills/shot 0.201
+  by species (ticks it was a straggler | shots aimed at it | kills/shot):
+    S: ticks   268 | shots   140 | kills/shot 0.200
+    V: ticks    92 | shots    40 | kills/shot 0.200
+    T: ticks   101 | shots    52 | kills/shot 0.173
+    R: ticks    69 | shots    32 | kills/shot 0.188
+  last-dino chases (1 dino on the board; cleared = it died and the board emptied):
+    S:   17 chases | cleared  88% | median ticks   5 | median shots to finish   3 | worst 19 ticks
+    V:    4 chases | cleared 100% | median ticks   5 | median shots to finish   3 | worst 7 ticks
+    T:    5 chases | cleared 100% | median ticks  10 | median shots to finish   6 | worst 11 ticks
+    R:    3 chases | cleared 100% | median ticks  15 | median shots to finish   9 | worst 15 ticks
+
+=== bot N4 | 4 games ===
+mode        ticks  share  shots shots/t  kills kill/shot  zero%  points pts/tick eaten avg stay stays
+straggler    1049  26.2%    622    0.59    116     0.186    81%    7370      7.0     0     14.8    71
+rex            29   0.7%     15    0.52      5     0.333    67%     601     20.7     0      2.2    13
+pack          762  19.1%    471    0.62    144     0.306    71%   14837     19.5     0     12.9    59
+crowd        1070  26.8%    659    0.62    216     0.328    69%   23097     21.6     0     16.0    67
+normal       1022  25.6%    609    0.60    135     0.222    78%   10063      9.8     0     13.4    76
+empty          68   1.7%      0    0.00      0     0.000     0%       0      0.0     0      1.0    68
+ALL          4000 100.0%   2376    0.59    616     0.259    75%   55968     14.0     0      0.0     0
+flags (overlap with modes):
+  trapped   ticks    582 (15%) | shots 351 | kills 115 = 0.328/shot
+  rex_risk  ticks     74 (2%) | shots 48 | kills 17 = 0.354/shot
+  pack      ticks    788 (20%) | shots 486 | kills 147 = 0.302/shot
+straggler stays ended by: cleared (board empty) 68, game ended 2, next wave arrived 1
+straggler stay length: median 13 | 80% 20 | max 39 ticks
+straggler detail:
+  1 dino  left: ticks   565 | shots   332 | kills/shot 0.184
+  2 dinos left: ticks   484 | shots   290 | kills/shot 0.190
+  first shots (no meteor on that dino yet):   115 | kills/shot 0.104
+  extra shots (a meteor already falling on it):   507 | kills/shot 0.205
+  by species (ticks it was a straggler | shots aimed at it | kills/shot):
+    S: ticks   617 | shots   336 | kills/shot 0.176
+    V: ticks   160 | shots    63 | kills/shot 0.206
+    T: ticks   218 | shots   101 | kills/shot 0.208
+    R: ticks   243 | shots   122 | kills/shot 0.189
+  last-dino chases (1 dino on the board; cleared = it died and the board emptied):
+    S:   37 chases | cleared 100% | median ticks   7 | median shots to finish   5 | worst 30 ticks
+    V:    6 chases | cleared 100% | median ticks  10 | median shots to finish   6 | worst 10 ticks
+    T:   13 chases | cleared 100% | median ticks   6 | median shots to finish   3 | worst 28 ticks
+    R:   13 chases | cleared  92% | median ticks   7 | median shots to finish   5 | worst 14 ticks
+
+=== bot N6 | 4 games ===
+mode        ticks  share  shots shots/t  kills kill/shot  zero%  points pts/tick eaten avg stay stays
+straggler    1114  27.9%    672    0.60    104     0.155    85%    6093      5.5     0     18.0    62
+rex            66   1.7%     40    0.61      8     0.200    82%     868     13.2     0      7.3     9
+pack          637  15.9%    396    0.62    115     0.290    72%   12124     19.0     0     12.0    53
+crowd        1103  27.6%    674    0.61    176     0.261    75%   18580     16.8     0     20.1    55
+normal       1022  25.6%    611    0.60    123     0.201    80%    8651      8.5     0     13.8    74
+empty          58   1.5%      0    0.00      0     0.000     0%       0      0.0     0      1.0    58
+ALL          4000 100.0%   2393    0.60    526     0.220    79%   46316     11.6     0      0.0     0
+flags (overlap with modes):
+  trapped   ticks    530 (13%) | shots 319 | kills 107 = 0.335/shot
+  rex_risk  ticks     94 (2%) | shots 59 | kills 12 = 0.203/shot
+  pack      ticks    684 (17%) | shots 424 | kills 119 = 0.281/shot
+straggler stays ended by: cleared (board empty) 58, next wave arrived 3, game ended 1
+straggler stay length: median 17 | 80% 24 | max 46 ticks
+straggler detail:
+  1 dino  left: ticks   606 | shots   370 | kills/shot 0.143
+  2 dinos left: ticks   508 | shots   302 | kills/shot 0.169
+  first shots (no meteor on that dino yet):   114 | kills/shot 0.061
+  extra shots (a meteor already falling on it):   558 | kills/shot 0.174
+  by species (ticks it was a straggler | shots aimed at it | kills/shot):
+    S: ticks   679 | shots   379 | kills/shot 0.145
+    V: ticks   173 | shots    76 | kills/shot 0.211
+    T: ticks   252 | shots   128 | kills/shot 0.180
+    R: ticks   154 | shots    89 | kills/shot 0.112
+  last-dino chases (1 dino on the board; cleared = it died and the board emptied):
+    S:   32 chases | cleared  94% | median ticks   9 | median shots to finish   5 | worst 37 ticks
+    V:    9 chases | cleared  89% | median ticks   5 | median shots to finish   3 | worst 10 ticks
+    T:   13 chases | cleared 100% | median ticks   9 | median shots to finish   5 | worst 15 ticks
+    R:    5 chases | cleared 100% | median ticks  15 | median shots to finish   9 | worst 35 ticks
+
+=== bot N7 | 5 games ===
+mode        ticks  share  shots shots/t  kills kill/shot  zero%  points pts/tick eaten avg stay stays
+straggler    1381  27.6%    831    0.60    145     0.174    83%    9272      6.7     0     17.0    81
+rex            14   0.3%      6    0.43      3     0.500    50%     393     28.1     0      1.8     8
+pack          960  19.2%    585    0.61    172     0.294    72%   17811     18.6     0     12.2    79
+crowd        1331  26.6%    814    0.61    230     0.283    73%   24325     18.3     0     16.8    79
+normal       1238  24.8%    748    0.60    150     0.201    80%   10809      8.7     0     13.8    90
+empty          76   1.5%      0    0.00      0     0.000     0%       0      0.0     0      1.0    76
+ALL          5000 100.0%   2984    0.60    700     0.235    77%   62610     12.5     0      0.0     0
+flags (overlap with modes):
+  trapped   ticks    735 (15%) | shots 432 | kills 132 = 0.306/shot
+  rex_risk  ticks     57 (1%) | shots 35 | kills 16 = 0.457/shot
+  pack      ticks   1006 (20%) | shots 611 | kills 177 = 0.290/shot
+straggler stays ended by: cleared (board empty) 76, next wave arrived 3, game ended 2
+straggler stay length: median 15 | 80% 23 | max 50 ticks
+straggler detail:
+  1 dino  left: ticks   695 | shots   415 | kills/shot 0.161
+  2 dinos left: ticks   686 | shots   416 | kills/shot 0.188
+  first shots (no meteor on that dino yet):   142 | kills/shot 0.155
+  extra shots (a meteor already falling on it):   689 | kills/shot 0.179
+  by species (ticks it was a straggler | shots aimed at it | kills/shot):
+    S: ticks   869 | shots   492 | kills/shot 0.152
+    V: ticks   252 | shots   120 | kills/shot 0.200
+    T: ticks   355 | shots   180 | kills/shot 0.200
+    R: ticks    92 | shots    39 | kills/shot 0.256
+  last-dino chases (1 dino on the board; cleared = it died and the board emptied):
+    S:   42 chases | cleared  93% | median ticks   9 | median shots to finish   5 | worst 33 ticks
+    V:   12 chases | cleared 100% | median ticks   6 | median shots to finish   4 | worst 20 ticks
+    T:   21 chases | cleared 100% | median ticks   9 | median shots to finish   5 | worst 17 ticks
+    R:    4 chases | cleared 100% | median ticks   9 | median shots to finish   5 | worst 16 ticks
+
+=== bot N8 | 3 games ===
+mode        ticks  share  shots shots/t  kills kill/shot  zero%  points pts/tick eaten avg stay stays
+straggler     816  27.2%    493    0.60     89     0.181    82%    6183      7.6     0     16.3    50
+rex            16   0.5%     10    0.62      3     0.300    70%     325     20.3     0      1.3    12
+pack          610  20.3%    374    0.61    112     0.299    70%   11429     18.7     0     14.5    42
+crowd         815  27.2%    498    0.61    129     0.259    76%   13591     16.7     0     19.0    43
+normal        694  23.1%    415    0.60     95     0.229    78%    6732      9.7     0     12.9    54
+empty          49   1.6%      0    0.00      0     0.000     0%       0      0.0     0      1.0    49
+ALL          3000 100.0%   1790    0.60    428     0.239    77%   38259     12.8     0      0.0     0
+flags (overlap with modes):
+  trapped   ticks    347 (12%) | shots 203 | kills 61 = 0.300/shot
+  rex_risk  ticks     45 (2%) | shots 26 | kills 4 = 0.154/shot
+  pack      ticks    648 (22%) | shots 400 | kills 120 = 0.300/shot
+straggler stays ended by: cleared (board empty) 49, next wave arrived 1
+straggler stay length: median 15 | 80% 24 | max 39 ticks
+straggler detail:
+  1 dino  left: ticks   449 | shots   269 | kills/shot 0.167
+  2 dinos left: ticks   367 | shots   224 | kills/shot 0.196
+  first shots (no meteor on that dino yet):    80 | kills/shot 0.138
+  extra shots (a meteor already falling on it):   413 | kills/shot 0.189
+  by species (ticks it was a straggler | shots aimed at it | kills/shot):
+    S: ticks   506 | shots   276 | kills/shot 0.167
+    V: ticks   165 | shots    88 | kills/shot 0.170
+    T: ticks   190 | shots   101 | kills/shot 0.218
+    R: ticks    66 | shots    28 | kills/shot 0.214
+  last-dino chases (1 dino on the board; cleared = it died and the board emptied):
+    S:   24 chases | cleared  96% | median ticks  10 | median shots to finish   5 | worst 27 ticks
+    V:   10 chases | cleared 100% | median ticks   8 | median shots to finish   4 | worst 13 ticks
+    T:   12 chases | cleared 100% | median ticks   6 | median shots to finish   4 | worst 23 ticks
+    R:    4 chases | cleared 100% | median ticks   7 | median shots to finish   5 | worst 10 ticks

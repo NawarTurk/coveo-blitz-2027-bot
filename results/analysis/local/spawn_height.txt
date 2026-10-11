@@ -1,0 +1,23 @@
+SPAWN HEIGHT | 1151 games from logs/local_game_logs
+Compares each spawn tile's height with the free tiles it could have spawned on (same window, same tick).
+
+1. ALL SPAWNS
+   n=128445 | above avg 47.4% (chance 49.0%) | below avg 52.6% (chance 51.0%) | height percentile 0.49 (0.50 = none)
+
+2. PER SPECIES
+   Stegosaurus  n= 59560 | above avg 47.6% (chance 49.0%) | below avg 52.3% (chance 50.9%) | height percentile 0.49 (0.50 = none)
+   Velociraptor n= 27486 | above avg 46.2% (chance 48.9%) | below avg 53.8% (chance 51.0%) | height percentile 0.48 (0.50 = none)
+   Triceratops  n= 33010 | above avg 47.9% (chance 49.0%) | below avg 52.1% (chance 51.0%) | height percentile 0.49 (0.50 = none)
+   T-Rex        n=  8389 | above avg 47.9% (chance 49.2%) | below avg 52.0% (chance 50.8%) | height percentile 0.49 (0.50 = none)
+
+3. PER BLOCK (window split in 4; above/below = vs that block's own average height)
+   top-left     spawns here 22.6% (share of free tiles 23.2%) | n= 28972 | above avg 47.4% (chance 49.1%) | below avg 52.4% (chance 50.7%) | height percentile 0.45 (0.50 = none)
+   top-right    spawns here 22.3% (share of free tiles 23.2%) | n= 28654 | above avg 47.7% (chance 49.2%) | below avg 52.2% (chance 50.6%) | height percentile 0.45 (0.50 = none)
+   bottom-left  spawns here 27.6% (share of free tiles 26.8%) | n= 35393 | above avg 47.0% (chance 48.9%) | below avg 52.8% (chance 51.0%) | height percentile 0.52 (0.50 = none)
+   bottom-right spawns here 27.6% (share of free tiles 26.8%) | n= 35426 | above avg 46.8% (chance 48.9%) | below avg 53.0% (chance 51.0%) | height percentile 0.52 (0.50 = none)
+
+   spawns per block, per species:
+   Stegosaurus  top-left 22.0% | top-right 22.4% | bottom-left 27.8% | bottom-right 27.8%
+   Velociraptor top-left 23.3% | top-right 22.3% | bottom-left 27.2% | bottom-right 27.3%
+   Triceratops  top-left 22.8% | top-right 22.3% | bottom-left 27.5% | bottom-right 27.5%
+   T-Rex        top-left 23.0% | top-right 22.2% | bottom-left 27.4% | bottom-right 27.4%

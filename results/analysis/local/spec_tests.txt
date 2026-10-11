@@ -1,0 +1,119 @@
+SPEC TESTS | 1054 games from logs/local_game_logs | 6577590 dino moves
+Each line: measured value vs BASELINE (chance = average over the moves the dino could have made, or the other species). You judge.
+
+## Stegosaurus
+H1  move mix when safe (and how often it repeats its last non-stay move):
+    Stegosaurus  stay 14% up 10% down 28% left 24% right 24% (n=2749767) | repeats last move 38.0%
+    Velociraptor stay 50% up 9% down 17% left 12% right 12% (n=852241) | repeats last move 47.0%
+    Triceratops  stay 26% up 14% down 27% left 16% right 17% (n=782500) | repeats last move 34.3%
+    T-Rex        stay 53% up 7% down 18% left 11% right 11% (n=455130) | repeats last move 32.2%
+H2  direction by row in the window (safe; row 0 = top/trailing edge) - Stegosaurus vs Triceratops:
+    Stegosaurus  row00-04: stay 25% up 9% down 32% left 17% right 17% (n=420949)
+    Stegosaurus  row05-09: stay 14% up 10% down 35% left 21% right 20% (n=739499)
+    Stegosaurus  row10-14: stay 11% up 8% down 25% left 28% right 28% (n=1435465)
+    Stegosaurus  row15-19: stay 9% up 29% down 14% left 25% right 24% (n=153854)
+    Triceratops  row00-04: stay 30% up 10% down 28% left 16% right 16% (n=221324)
+    Triceratops  row05-09: stay 26% up 16% down 27% left 16% right 16% (n=216961)
+    Triceratops  row10-14: stay 25% up 16% down 26% left 16% right 16% (n=197423)
+    Triceratops  row15-19: stay 20% up 17% down 26% left 19% right 19% (n=146792)
+    direction by column (safe):
+    Stegosaurus  col00-04: stay 16% up 10% down 29% left 16% right 28% (n=450196)
+    Stegosaurus  col05-09: stay 13% up 10% down 27% left 23% right 27% (n=926741)
+    Stegosaurus  col10-14: stay 13% up 10% down 27% left 27% right 23% (n=925146)
+    Stegosaurus  col15-19: stay 15% up 10% down 29% left 29% right 16% (n=447684)
+H3  near the TOP (trailing) edge: P(move away = down) vs P(move toward = up), by distance (safe):
+    Stegosaurus  dist 0-1: away 29.3% toward 4.7% | dist 2-4: away 33.2% toward 11.9% | dist 5+: away 27.4% toward 9.9%
+    Velociraptor dist 0-1: away 21.4% toward 3.4% | dist 2-4: away 21.2% toward 3.6% | dist 5+: away 14.5% toward 13.0%
+    Triceratops  dist 0-1: away 28.8% toward 4.3% | dist 2-4: away 27.1% toward 13.5% | dist 5+: away 26.3% toward 16.1%
+    T-Rex        dist 0-1: away 19.5% toward 2.2% | dist 2-4: away 20.6% toward 5.4% | dist 5+: away 17.1% toward 9.3%
+H4  standing inside a falling blast: next move goes farther from the centre / stays:
+    Stegosaurus  away 70.7% | stays at same distance 26.2% | n=376477
+    Velociraptor away 68.0% | stays at same distance 26.9% | n=125880
+    Triceratops  away 76.3% | stays at same distance 19.8% | n=173101
+    T-Rex        away 80.1% | stays at same distance 13.2% | n=45602
+
+## Velociraptor
+H5/H7 safe, a corpse within 8 tiles: P(move closer) and average distance change, chosen vs options:
+    Stegosaurus  closer 33.1% | change chosen +0.189 vs options +0.109 | n=1119653
+    Velociraptor closer 26.4% | change chosen -0.075 vs options +0.304 | n=495875
+    Triceratops  closer 29.6% | change chosen +0.153 vs options +0.110 | n=401896
+    T-Rex        closer 18.5% | change chosen +0.120 vs options +0.151 | n=225618
+H6  stay rate safe vs threatened:
+    Stegosaurus  safe 14% | threatened 20%
+    Velociraptor safe 50% | threatened 46%
+    Triceratops  safe 26% | threatened 25%
+    T-Rex        safe 53% | threatened 16%
+H8  just outside a falling blast (distance 3 from its centre): P(stay):
+    Stegosaurus  stays 18.1% | n=644612
+    Velociraptor stays 53.3% | n=236800
+    Triceratops  stays 28.2% | n=267681
+    T-Rex        stays 20.0% | n=44235
+
+## Triceratops
+H9  nearest Triceratops: from a Triceratops 3.86 tiles | from other species 9.78 | Triceratops to nearest non-Triceratops 7.13
+H10 two Triceratops make the SAME move: within 4 tiles 49.9% (n=533993) | farther apart 21.8% (n=1375183)
+H11 elevation (safe): change of the chosen move vs average of the options, and P(picks the highest option):
+    Stegosaurus  chosen +0.014 vs options +0.148 | picks highest 30.0% vs chance 31.3%
+    Velociraptor chosen +0.008 vs options +0.159 | picks highest 28.0% vs chance 33.2%
+    Triceratops  chosen +0.083 vs options -0.061 | picks highest 36.1% vs chance 33.1%
+    T-Rex        chosen +0.007 vs options +0.089 | picks highest 26.4% vs chance 31.1%
+
+## T-Rex
+H12 free tiles reachable within 2 moves after the move: chosen vs options (sampled 25%):
+    Stegosaurus  chosen 11.32 vs options 11.22
+    Velociraptor chosen 10.20 vs options 10.28
+    Triceratops  chosen 10.66 vs options 10.66
+    T-Rex        chosen 10.70 vs options 10.39
+H13 no dino adjacent: change in distance to the nearest other dino, chosen vs options:
+    Stegosaurus  chosen -0.095 vs options -0.037
+    Velociraptor chosen +0.037 vs options -0.136
+    Triceratops  chosen -0.164 vs options -0.034
+    T-Rex        chosen +0.172 vs options -0.100
+H14 P(dies next tick, not by meteor / scroll / lava) by distance to the nearest T-Rex:
+    dist 1: 69.6% (n=7358) | dist 2: 0.0% (n=20128) | dist 3: 0.0% (n=36219) | dist 4+: 0.0% (n=1499507)
+
+## All dinosaurs
+H15 inside a blast: moves away on the FIRST tick after launch 79.0% (n=486692) | later ticks 58.1% (n=234368)
+H16 a lava-adjacent option exists: chosen tile next to lava vs chance:
+    Stegosaurus  chosen 37.8% vs chance 43.3% | n=395545
+    Velociraptor chosen 54.4% vs chance 48.1% | n=229150
+    Triceratops  chosen 39.4% vs chance 45.0% | n=137710
+    T-Rex        chosen 25.2% vs chance 42.5% | n=83261
+    dinos standing ON lava: 0 of 6695495
+H17 P(move away from / toward each edge) at distance 0-1 vs 5+ (safe):
+    Stegosaurus  top: away 29.3%/27.4% toward 4.7%/9.9% | bottom: away 26.4%/8.6% toward 11.5%/28.8% | left: away 22.8%/23.3% toward 7.3%/25.9% | right: away 24.2%/23.4% toward 7.4%/25.6%   (near/far)
+    Velociraptor top: away 21.4%/14.5% toward 3.4%/13.0% | bottom: away 7.9%/8.4% toward 17.1%/17.5% | left: away 7.9%/11.7% toward 4.3%/12.8% | right: away 8.1%/11.9% toward 4.4%/12.7%   (near/far)
+    Triceratops  top: away 28.8%/26.3% toward 4.3%/16.1% | bottom: away 17.0%/13.8% toward 21.9%/26.9% | left: away 14.2%/16.6% toward 6.4%/17.6% | right: away 14.7%/16.2% toward 7.5%/18.0%   (near/far)
+    T-Rex        top: away 19.5%/17.1% toward 2.2%/9.3% | bottom: away 2.3%/8.0% toward 1.6%/18.3% | left: away 5.1%/12.0% toward 2.1%/11.3% | right: away 4.9%/11.9% toward 2.2%/11.5%   (near/far)
+H18 tiles holding 2+ dinos: 0 over 1050462 ticks | P(stay) when the tile in its last direction holds a dino 18.3% (n=789136) vs empty 22.3%
+H19 dinos standing on impassable / mountain tiles: 0 of 6695495 | moves of more than 1 tile: 0
+
+## Rolling window
+H20 origin y change per tick: 0: 841211, 1: 209251
+H21 tick (mod 5) of each window shift: 1: 209251
+H22 dinos outside the window: 0 | deaths by scrolling: 14324 (was in the top row: 14324)
+
+## Corpses
+H23 new corpses on the tile where a dino just died: 98072 of 104232
+H24 dinos standing on a corpse tile: 207804 | lava on a corpse tile (tile-ticks): 1051288
+H25 corpses inside a landing blast: 155362 | gone the next tick: 3630
+H26 corpses that disappeared: 100537 | of which scrolled out of the window: 100537
+
+## Waves
+H27 most common species mix at each cycle position (share of waves):
+    pos  1: 10S 93% | 9S 5% (n=1871)
+    pos  2: 8S 2V 88% | 7S 2V 9% (n=1625)
+    pos  3: 6S 4V 85% | 5S 4V 5% (n=1503)
+    pos  4: 2V 8T 84% | 2V 7T 9% (n=1343)
+    pos  5: 6S 4V 87% | 6S 3V 5% (n=1253)
+    pos  6: 2V 7T 1R 77% | 2V 6T 1R 14% (n=1206)
+    pos  7: 6S 4V 87% | 5S 4V 6% (n=1148)
+    pos  8: 2V 7T 1R 77% | 2V 6T 1R 11% (n=1089)
+    pos  9: 2S 2V 3T 3R 68% | 2S 2V 2T 3R 9% (n=1064)
+    pos 10: 3S 4T 3R 69% | 3S 3T 3R 14% (n=1054)
+H28 next wave start: after a board clear (+ticks) / by the timer (ticks since previous start):
+    after_clear_+0: 94, after_clear_+1: 6562, timer_100: 5446
+H29 most dinos alive at once: 20 | ticks with 20 alive: 3324 | wave sizes: 3: 6, 4: 10, 5: 23, 6: 38, 7: 90, 8: 352, 9: 1772, 10: 10865
+H30 wave k and wave k+10 have the same species mix: 86.5% (n=2638)
+
+death causes (helper): meteor 87851, lava 14696, scroll 14324, other 5681
