@@ -1,0 +1,33 @@
+behaviour model | train 300 games, test 50 unseen games | sampled 15% of moves
+moves: train 256847, test 41148
+
+NEXT MOVE on unseen games (accuracy = picks the real move as most likely; log-loss lower is better)
+  Stegosaurus  n= 22827 | accuracy model 41.4% habit 29.3% uniform 14.4% | log-loss model 1.364 habit 1.483 uniform 1.530
+  Velociraptor n=  7612 | accuracy model 51.1% habit 46.7% uniform 46.7% | log-loss model 1.184 habit 1.339 uniform 1.468
+  Triceratops  n=  7281 | accuracy model 38.6% habit 25.5% uniform 25.5% | log-loss model 1.343 habit 1.489 uniform 1.497
+  T-Rex        n=  3428 | accuracy model 55.3% habit 44.3% uniform 44.3% | log-loss model 1.065 habit 1.395 uniform 1.534
+
+4 MOVES AHEAD on unseen games (what a meteor needs): P given to the real tile | real tile = most likely tile
+  Stegosaurus  n= 1068 | model P 0.064, top tile right 11.4% | random walk P 0.044, top tile right 11.1%
+  Velociraptor n=  314 | model P 0.120, top tile right 20.1% | random walk P 0.070, top tile right 22.3%
+  Triceratops  n=  321 | model P 0.072, top tile right 10.0% | random walk P 0.058, top tile right 15.9%
+  T-Rex        n=  157 | model P 0.094, top tile right 11.5% | random walk P 0.063, top tile right 17.2%
+
+LEARNED RULE WEIGHTS (per unit of the feature; + = makes that move more likely)
+  rule             Stegosaurus  Velociraptor   Triceratops         T-Rex
+  stay                   -0.11          1.39          0.24          1.56
+  repeat                  0.57          0.81          0.47          0.16
+  escape                  0.81          1.59          1.23          1.96
+  into_blast             -1.43         -0.58         -0.93         -2.51
+  stop_outside           -0.59          0.14         -0.24         -2.94
+  top_edge                0.15         -0.90         -0.06         -1.84
+  other_edge              0.02          0.30          0.14         -0.68
+  target_pull             0.13          0.15         -0.01          0.00
+  pack_pull               0.15          0.17          0.45          0.12
+  spread                 -0.01          0.39          0.13          1.05
+  elev_up                -0.05         -0.05          0.00         -0.06
+  lava_adj               -0.42          0.01         -0.37         -1.59
+  occupied                0.04         -0.62         -0.16          4.64
+  next_to_rex             0.05          0.30         -0.01         -0.54
+  down                    0.35         -0.07          0.20          0.04
+  sideways                0.21         -0.01         -0.14         -0.20
