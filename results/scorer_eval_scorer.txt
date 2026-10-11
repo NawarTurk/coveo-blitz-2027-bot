@@ -1,0 +1,22 @@
+model bot/models/scorer (33 inputs) on ['data/scorer_server.csv.gz']
+
+=== EVAL: 4153 shots from 7 games | real kill rate 0.223 | 2+ rate 0.0072 | avg points/shot 20.44
+AUC  kill 1+: XGB 0.810 vs N7 score 0.738 | kill 2+: XGB 0.948 vs N7 0.862
+top 10% shots   XGB: kill 0.639 2+ 0.0482 pts 74.75   |   N7 score: kill 0.460 2+ 0.0458 pts 47.77
+top 20% shots   XGB: kill 0.533 2+ 0.0277 pts 57.08   |   N7 score: kill 0.452 2+ 0.0289 pts 46.18
+top 50% shots   XGB: kill 0.360 2+ 0.0140 pts 34.95   |   N7 score: kill 0.345 2+ 0.0135 pts 33.34
+calibration (predicted P(kill) bucket -> real kill rate, shots):
+  (-0.001, 0.05] -> 0.022  (672)
+  (0.05, 0.1]    -> 0.057  (524)
+  (0.1, 0.2]     -> 0.128  (862)
+  (0.2, 0.3]     -> 0.178  (675)
+  (0.3, 0.4]     -> 0.264  (444)
+  (0.4, 0.5]     -> 0.380  (303)
+  (0.5, 0.6]     -> 0.442  (199)
+  (0.6, 0.8]     -> 0.601  (268)
+  (0.8, 1.0]     -> 0.830  (206)
+per mode (kill rate of the top 20% shots: XGB vs N7 score):
+  straggler    1170 shots | real 0.153 | XGB top20% 0.432 | N7 top20% 0.333
+  pack          788 shots | real 0.292 | XGB top20% 0.643 | N7 top20% 0.580
+  crowd        1147 shots | real 0.260 | XGB top20% 0.581 | N7 top20% 0.524
+  normal       1035 shots | real 0.209 | XGB top20% 0.531 | N7 top20% 0.464
